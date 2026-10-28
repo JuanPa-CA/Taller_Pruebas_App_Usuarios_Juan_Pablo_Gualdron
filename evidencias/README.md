@@ -2,8 +2,10 @@
 
 | Evidencia | Archivo | Estado |
 | --- | --- | --- |
-| Pruebas unitarias y de integración de la API | `coverage/api/api-tests.txt` | 8 archivos, 61 pruebas aprobadas |
-| Pruebas unitarias y de componentes de la web | `coverage/web/web-tests.txt` | 19 archivos, 76 pruebas aprobadas |
+| Pruebas unitarias y de integración de la API | `coverage/api/api-tests.txt` / `api-tests.png` | 8 archivos, 61 pruebas aprobadas |
+| Pruebas unitarias y de componentes de la web | `coverage/web/web-tests.txt` / `web-tests.png` | 19 archivos, 76 pruebas aprobadas |
+| Resumen de cobertura en terminal (API) | `coverage/api/api-coverage-terminal.png` | Captura |
+| Resumen de cobertura en terminal (web) | `coverage/web/web-coverage-terminal.png` | Captura |
 | Cobertura API (resumen JSON) | `coverage/api/api-coverage-summary.json` | 89.36% líneas, 88.38% sentencias, 96.96% funciones, 81.60% ramas |
 | Cobertura web (resumen JSON) | `coverage/web/web-coverage-summary.json` | 90.86% líneas, 89.87% sentencias, 85.81% funciones, 77.59% ramas |
 | Reporte HTML de cobertura API (tabla general) | `coverage/api/api-coverage-report.png` | Captura |
