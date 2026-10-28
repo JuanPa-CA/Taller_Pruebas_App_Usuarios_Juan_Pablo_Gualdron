@@ -31,6 +31,33 @@ No incluir archivos con la API key ni el archivo `.env`.
 5. Copiar la carpeta `testsprite_tests/` resultante a `evidencias/testsprite/api`
    y `evidencias/testsprite/web` según corresponda.
 
+## Configuración del MCP en opencode
+
+El servidor está registrado en la configuración global de opencode:
+
+```json
+{
+  "mcp": {
+    "TestSprite": {
+      "type": "local",
+      "command": ["npx", "-y", "@testsprite/testsprite-mcp@latest"],
+      "enabled": true,
+      "environment": { "API_KEY": "{env:TESTSRITE_API_KEY}" }
+    }
+  }
+}
+```
+
+La clave se lee de la variable de entorno `TESTSRITE_API_KEY` y nunca se escribe en el
+repositorio. En Windows se define una sola vez y se reinicia la terminal y opencode:
+
+```powershell
+[Environment]::SetEnvironmentVariable("TESTSRITE_API_KEY", "TU_API_KEY", "User")
+```
+
 ## Estado
 
-Pendiente de ejecución con la API key de TestSprite.
+Pendiente de ejecución con la API key de TestSprite. Una vez configurada la variable y
+reiniciado opencode, se ejecuta el agente para backend (API, puerto 3000) y frontend
+(web, puerto 5173), cargando `PRD.md` en ambas ejecuciones.
+
