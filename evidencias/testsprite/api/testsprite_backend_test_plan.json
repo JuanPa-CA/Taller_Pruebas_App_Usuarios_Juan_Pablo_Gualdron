@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC001",
+    "title": "get api health returns status ok",
+    "description": "Verify that a GET request to /api/health returns HTTP 200 with JSON body {\"status\":\"ok\"} indicating the API is operational."
+  },
+  {
+    "id": "TC002",
+    "title": "post api auth registro with valid data creates usuario role user",
+    "description": "Test POST /api/auth/registro with valid nombre, unique email, and strong password creates a user with role \"usuario\" and returns HTTP 201 with token and user data."
+  },
+  {
+    "id": "TC003",
+    "title": "post api auth registro with weak password returns validation error",
+    "description": "Test POST /api/auth/registro with a password that does not meet complexity rules returns HTTP 400 with appropriate validation error messages."
+  },
+  {
+    "id": "TC004",
+    "title": "post api auth login with valid credentials returns token and usuario",
+    "description": "Test POST /api/auth/login with correct email and password returns HTTP 200 with JWT token and user data."
+  },
+  {
+    "id": "TC005",
+    "title": "post api auth login with invalid credentials returns 401 error",
+    "description": "Test POST /api/auth/login with unknown email or wrong password returns HTTP 401 with message \"Credenciales inválidas\"."
+  },
+  {
+    "id": "TC006",
+    "title": "get api auth perfil with valid token returns authenticated user",
+    "description": "Test GET /api/auth/perfil with valid x-token header returns HTTP 200 with authenticated user's profile data."
+  },
+  {
+    "id": "TC007",
+    "title": "put api auth perfil updates nombre and email with uniqueness check",
+    "description": "Test PUT /api/auth/perfil with valid x-token and updated nombre and/or email updates the user profile, ensuring email uniqueness except for the user's own email, returning HTTP 200 with updated user."
+  },
+  {
+    "id": "TC008",
+    "title": "put api auth password changes password with correct current password",
+    "description": "Test PUT /api/auth/password with valid x-token, correct current password, and valid new password different from current updates the password and returns HTTP 200 with confirmation message."
+  },
+  {
+    "id": "TC009",
+    "title": "get api usuarios with admin token returns paginated user list",
+    "description": "Test GET /api/usuarios with valid admin x-token returns HTTP 200 with paginated list of active users, supporting optional search, role filter, page, and limit parameters."
+  },
+  {
+    "id": "TC010",
+    "title": "delete api usuarios id with admin token logically deletes user except self",
+    "description": "Test DELETE /api/usuarios/:id with valid admin x-token deletes the specified user logically (estado=false) and returns HTTP 200 with confirmation, but returns HTTP 400 if admin attempts to delete own account."
+  }
+]

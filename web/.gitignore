@@ -8,3 +8,5 @@ test-results/
 !.env.example
 e2e/.auth/
 *.log
+testsprite_tests/tmp/
+testsprite_tests/tmp/config.json

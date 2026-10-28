@@ -1,0 +1,967 @@
+[
+  {
+    "id": "TC001",
+    "title": "Guest is redirected away from protected routes",
+    "description": "A guest cannot access protected app areas directly and is redirected to the login page.",
+    "category": "Auth/session flows",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /perfil"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the login page is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /usuarios"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the login page is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Admin views the user list from the initial route",
+    "description": "An admin signs in and is taken to the user management area with the user table visible.",
+    "category": "Admin Users",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user list page is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user table is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Guest cannot access the users list",
+    "description": "This verifies that a guest trying to open the protected users list is redirected to sign in.",
+    "category": "Route guarding and 404",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /usuarios"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user is redirected to the login page"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Guest signs up and lands in own profile",
+    "description": "A new guest can register successfully and is automatically signed in to their profile with the user role shown.",
+    "category": "User Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /registro"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the name field with a new user name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a unique email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with a valid password"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password confirmation field with the same valid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the profile page is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user role is shown as a regular user"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "User logs in and reaches the role-based area",
+    "description": "An authenticated user can sign in and is redirected to the area appropriate for their role.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the authenticated area is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the area for their role"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Regular user is redirected away from the admin users list",
+    "description": "This verifies that a signed-in non-admin user cannot access the admin users list and is sent to their profile area instead.",
+    "category": "Route guarding and 404",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the users list link or navigate to the users area from the app"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user is redirected to the profile area"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Authenticated user logs out",
+    "description": "A signed-in user can log out and is returned to the login page.",
+    "category": "Profile management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the profile page"
+      },
+      {
+        "type": "action",
+        "description": "Log out"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the login page is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user is no longer signed in"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Admin can view and browse the users list",
+    "description": "This verifies that an admin can open the users list, see results, and move through paginated pages.",
+    "category": "User administration CRUD",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the users list is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Click the next page control"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a different page of users is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Unknown routes show the not found page",
+    "description": "An invalid route displays the application not found screen instead of a protected view or blank page.",
+    "category": "Auth/session flows",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to a non-existent route"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the not found page is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the page shows a page not found state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Admin searches users by name or email",
+    "description": "An admin can filter the user table by search terms and see matching results in the list.",
+    "category": "Admin Users",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the user list page"
+      },
+      {
+        "type": "action",
+        "description": "Enter a search term for a known user name or email"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user list shows matching results"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the filtered table is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Authenticated user updates profile details",
+    "description": "A signed-in user can change their name and email and see the updated profile information afterward.",
+    "category": "Profile management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the profile page"
+      },
+      {
+        "type": "action",
+        "description": "Update the name field with a new value"
+      },
+      {
+        "type": "action",
+        "description": "Update the email field with a new value"
+      },
+      {
+        "type": "action",
+        "description": "Save the profile changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the profile page shows the updated user details"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the saved profile information is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Admin can search users by name or email",
+    "description": "This verifies that an admin can narrow the users list using the search field and see matching results.",
+    "category": "User administration CRUD",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Fill the users search field with a valid name or email fragment"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the users list is filtered to matching results"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Admin filters users by role",
+    "description": "An admin can switch the role filter and see the list update to users with that role.",
+    "category": "Admin Users",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the user list page"
+      },
+      {
+        "type": "action",
+        "description": "Select a role filter value"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user list is filtered by role"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the filtered results are visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Authenticated user changes password successfully",
+    "description": "A signed-in user can submit the current password and a new password and see password change confirmation.",
+    "category": "Profile management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the profile page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the current password field with the current password"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the new password field with a new valid password"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password confirmation field with the same new valid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the password change form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a password change confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the profile page remains displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Admin can filter users by role",
+    "description": "This verifies that an admin can filter the users list by role and see only users in the selected role.",
+    "category": "User administration CRUD",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Select a role filter value"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the users list shows only users for the selected role"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Admin can delete a user after confirming the dialog",
+    "description": "This verifies that an admin can confirm logical deletion and the user is removed from the active list.",
+    "category": "User administration CRUD",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the delete action for a user already shown in the list"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the deletion"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the deleted user no longer appears in the active list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC017",
+    "title": "Admin paginates through the user list",
+    "description": "An admin can move to another page of the user table and see a different set of users.",
+    "category": "Admin Users",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the user list page"
+      },
+      {
+        "type": "action",
+        "description": "Go to the next page of results"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a different page of users is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the pagination state has changed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC018",
+    "title": "Admin can edit an existing user and see updated data",
+    "description": "This verifies that an admin can open a user for editing, save changes, and see the updated row in the list.",
+    "category": "User administration CRUD",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the edit action for a user already shown in the list"
+      },
+      {
+        "type": "action",
+        "description": "Update the name field with a new unique value"
+      },
+      {
+        "type": "action",
+        "description": "Update the email field with a new unique value"
+      },
+      {
+        "type": "action",
+        "description": "Submit the user form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated user is shown in the list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC019",
+    "title": "Admin edits an existing user and sees the updated row",
+    "description": "An admin can open an existing user, save changes, and see the updated information reflected in the list.",
+    "category": "Admin Users",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the user list page"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing user for editing"
+      },
+      {
+        "type": "action",
+        "description": "Update the user details"
+      },
+      {
+        "type": "action",
+        "description": "Save the user changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated user row is visible in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the edit changes are reflected"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC020",
+    "title": "Admin can create a new user and see it in the list",
+    "description": "This verifies that an admin can create a new user from the form and then find the new user in the users list.",
+    "category": "User administration CRUD",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the new user action"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the name field with a unique user name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a unique email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with a valid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the user form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the newly created user appears in the users list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC021",
+    "title": "Admin creates a user and then removes them logically",
+    "description": "An admin can create a new user, confirm it appears in the list, and then perform a logical delete with confirmation.",
+    "category": "Admin Users",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the user list page"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new user"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the new user's details"
+      },
+      {
+        "type": "action",
+        "description": "Save the new user"
+      },
+      {
+        "type": "action",
+        "description": "Verify the new user appears in the list"
+      },
+      {
+        "type": "action",
+        "description": "Start the logical delete for the new user"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the delete action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user is removed or marked inactive in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the delete confirmation flow completed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC022",
+    "title": "Admin can cancel user deletion",
+    "description": "This verifies that cancelling the delete confirmation keeps the user in the list.",
+    "category": "User administration CRUD",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the delete action for a user already shown in the list"
+      },
+      {
+        "type": "action",
+        "description": "Cancel the deletion"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user remains in the active list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC023",
+    "title": "Guest sees invalid credentials feedback on login",
+    "description": "A guest entering wrong login credentials sees an invalid credentials alert and stays on the login page.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with an invalid email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with an invalid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an invalid credentials alert is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the login page remains displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC024",
+    "title": "Guest sees validation when password is too weak",
+    "description": "A guest cannot complete registration with a weak password and sees validation feedback instead of entering the app.",
+    "category": "User Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /registro"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the name field with a new user name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a unique email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with a weak password"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password confirmation field with the same weak password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a password validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the registration page remains displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC025",
+    "title": "Guest sees validation when password confirmation does not match",
+    "description": "A guest cannot complete registration when the password confirmation differs and sees validation feedback.",
+    "category": "User Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /registro"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the name field with a new user name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a unique email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with a valid password"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password confirmation field with a different valid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a confirmation mismatch validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the registration page remains displayed"
+      }
+    ],
+    "priority": "Low"
+  }
+]

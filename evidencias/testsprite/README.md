@@ -6,16 +6,24 @@ Resultados de las ejecuciones del agente de pruebas con IA (TestSprite) sobre la
 
 ```
 evidencias/testsprite/
-├── api/    → plan, casos generados y reporte TestSprite de la API (backend, puerto 3000)
-├── web/    → plan, casos generados y reporte TestSprite de la web (frontend, puerto 5173)
+├── api/
+│   ├── casos/              → casos de prueba generados (TC*.py)
+│   ├── testsprite-mcp-test-report.md / .html
+│   ├── testsprite_backend_test_plan.json
+│   └── standard_prd.json
+├── web/
+│   ├── casos/              → casos de prueba generados (TC*.py)
+│   ├── testsprite-mcp-test-report.md
+│   ├── testsprite_frontend_test_plan.json
+│   └── standard_prd.json
 └── panel.png → captura del panel de TestSprite con ambas ejecuciones
 ```
 
-Cada carpeta debe contener la salida de la ejecución (`testsprite_tests/`), incluidos:
+Cada carpeta contiene la salida de la ejecución (`testsprite_tests/`), incluidos:
 
 - Plan de pruebas propuesto y ajustado.
-- Casos de prueba generados.
-- `TestSprite_MCP_Test_Report.md` y `TestSprite_MCP_Test_Report.html`.
+- Casos de prueba generados (en `casos/`).
+- Reporte `testsprite-mcp-test-report.md` (y `.html` en la API).
 
 No incluir archivos con la API key ni el archivo `.env`.
 
@@ -57,7 +65,9 @@ repositorio. En Windows se define una sola vez y se reinicia la terminal y openc
 
 ## Estado
 
-Pendiente de ejecución con la API key de TestSprite. Una vez configurada la variable y
-reiniciado opencode, se ejecuta el agente para backend (API, puerto 3000) y frontend
-(web, puerto 5173), cargando `PRD.md` en ambas ejecuciones.
+Ejecutado (2026-10-26):
+
+- **API (backend, puerto 3000):** 10/10 pruebas aprobadas. `api/testsprite-mcp-test-report.md` / `.html`.
+- **Web (frontend, puerto 5173):** 15/15 pruebas aprobadas (limitado a 15 casos de alta prioridad por servidor de desarrollo). `web/testsprite-mcp-test-report.md`.
+- **Panel:** `panel.png`.
 

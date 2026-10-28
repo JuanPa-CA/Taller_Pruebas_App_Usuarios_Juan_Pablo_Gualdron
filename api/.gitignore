@@ -4,3 +4,5 @@ node_modules/
 !.env.example
 coverage/
 *.log
+testsprite_tests/tmp/
+testsprite_tests/tmp/config.json
