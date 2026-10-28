@@ -73,7 +73,18 @@ de negocio exactas y la regresión en cada commit, mientras que TestSprite aport
 segunda revisión independiente, detecta escenarios y limitaciones no previstos y
 compara el comportamiento real con los requisitos documentados.
 
-## 5. Evidencias
+## 5. Líneas sin cubrir del reporte de cobertura
+
+- **API `app.js` (60.86% líneas, sin cubrir `19-20` y `47-58`):**
+  - `19-20` es el logger de peticiones, que solo se ejecuta cuando `NODE_ENV !== "test"`. En las pruebas `NODE_ENV` siempre es `test` (definido en `vitest.config.js`), por lo que nunca se ejecuta (comportamiento esperado).
+  - `47-58` son las ramas defensivas del middleware de errores: email duplicado por condición de carrera del índice único (`err.code === 11000`), error de Schema de Mongoose (`ValidationError`) y el `500` genérico. Las pruebas ya cubren el camino principal (JSON mal formado → `400`, y ruta inexistente → `404`); esas tres ramas no se disparan en el flujo normal porque `express-validator` valida antes de llegar al guardado.
+
+- **Web `AppHeader.vue` (77.77% líneas, sin cubrir `29-39` y `47-50`):**
+  - Son líneas de plantilla: el enlace de marca (`GU · Gestión de usuarios`) y el botón de menú móvil, más el enlace "Mi perfil" de la navegación. Los tests de componente cubren las iniciales, el rol, el nombre del usuario y el logout, pero no llegan a renderizar todos los estados de la plantilla (por ejemplo, la alternancia del menú en móvil).
+
+En ambos casos se trata de caminos defensivos o de maquetación; los umbrales de cobertura (80% líneas/funciones/sentencias y 70% ramas) ya se cumplen sin necesidad de forzarlos con pruebas adicionales.
+
+## 6. Evidencias
 
 | Evidencia | Archivo |
 | --- | --- |
