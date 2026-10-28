@@ -63,4 +63,42 @@ describe("Componente AppHeader.vue", () => {
 
     expect(pushMock).toHaveBeenCalledWith({ name: "login" });
   });
+
+  it("alterna el menú móvil al presionar el botón de menú", async () => {
+    const { setUser } = useAuth();
+    setUser({ uid: "1", nombre: "Admin Master", rol: "admin" });
+
+    const wrapper = mount(AppHeader, {
+      global: {
+        stubs: {
+          RouterLink: true,
+        },
+      },
+    });
+
+    const toggle = wrapper.find(".header__toggle");
+    expect(toggle.attributes("aria-expanded")).toBe("false");
+
+    await toggle.trigger("click");
+    expect(toggle.attributes("aria-expanded")).toBe("true");
+    expect(wrapper.find(".header__nav").classes()).toContain("header__nav--open");
+
+    await toggle.trigger("click");
+    expect(toggle.attributes("aria-expanded")).toBe("false");
+  });
+
+  it("muestra las iniciales del nombre del usuario", () => {
+    const { setUser } = useAuth();
+    setUser({ uid: "1", nombre: "Ana María Torres", rol: "usuario" });
+
+    const wrapper = mount(AppHeader, {
+      global: {
+        stubs: {
+          RouterLink: true,
+        },
+      },
+    });
+
+    expect(wrapper.find(".avatar").text()).toBe("AM");
+  });
 });

@@ -7,16 +7,17 @@ usuarios (Vitest, Supertest, Vue Test Utils, Playwright y TestSprite).
 
 | Proyecto | Herramienta | Tipo de prueba | Pruebas | Pasan | Fallan | Cobertura |
 | --- | --- | --- | --- | --- | --- | --- |
-| API | Vitest + Supertest + mongodb-memory-server | Unitarias e integración | 61 | 61 | 0 | — |
-| API | @vitest/coverage-v8 | Cobertura | — | — | — | 89.36% líneas · 88.38% sentencias · 96.96% funciones · 81.60% ramas |
-| Web | Vitest + Vue Test Utils + jsdom | Unitarias y de componentes | 76 | 76 | 0 | — |
-| Web | @vitest/coverage-v8 | Cobertura | — | — | — | 90.86% líneas · 89.87% sentencias · 85.81% funciones · 77.59% ramas |
+| API | Vitest + Supertest + mongodb-memory-server | Unitarias e integración | 73 | 73 | 0 | — |
+| API | @vitest/coverage-v8 | Cobertura | — | — | — | 97.87% líneas · 96.96% sentencias · 100% funciones · 91.95% ramas |
+| Web | Vitest + Vue Test Utils + jsdom | Unitarias y de componentes | 78 | 78 | 0 | — |
+| Web | @vitest/coverage-v8 | Cobertura | — | — | — | 91.10% líneas · 90.08% sentencias · 86.52% funciones · 77.59% ramas |
 | Web + API | Playwright | End-to-end (Chromium y Firefox) | 21 | 21 | 0 | — |
+| Web | @axe-core/playwright | Accesibilidad (Chromium y Firefox) | 3 | 3 | 0 | — |
 | API | TestSprite (IA) | Backend | 10 | 10 | 0 | — |
 | Web | TestSprite (IA) | Frontend | 15 | 15 | 0 | — |
 
-Todos los umbrales de cobertura se cumplen (80% líneas/funciones/sentencias y 70%
-ramas).
+Todos los umbrales de cobertura se cumplen con holgura (mínimos: 80% líneas/funciones/
+sentencias y 70% ramas) y ambos proyectos superan el 90% de cobertura de líneas.
 
 ## 2. Errores y comportamientos dudosos encontrados
 
@@ -75,14 +76,14 @@ compara el comportamiento real con los requisitos documentados.
 
 ## 5. Líneas sin cubrir del reporte de cobertura
 
-- **API `app.js` (60.86% líneas, sin cubrir `19-20` y `47-58`):**
-  - `19-20` es el logger de peticiones, que solo se ejecuta cuando `NODE_ENV !== "test"`. En las pruebas `NODE_ENV` siempre es `test` (definido en `vitest.config.js`), por lo que nunca se ejecuta (comportamiento esperado).
-  - `47-58` son las ramas defensivas del middleware de errores: email duplicado por condición de carrera del índice único (`err.code === 11000`), error de Schema de Mongoose (`ValidationError`) y el `500` genérico. Las pruebas ya cubren el camino principal (JSON mal formado → `400`, y ruta inexistente → `404`); esas tres ramas no se disparan en el flujo normal porque `express-validator` valida antes de llegar al guardado.
+- **API `app.js` (86.95% líneas, sin cubrir `19-20` y `56`):**
+  - `19-20` es el logger de peticiones y `56` el log de errores; ambos solo se ejecutan cuando `NODE_ENV !== "test"`. En las pruebas `NODE_ENV` siempre es `test` (definido en `vitest.config.js`), por lo que esas líneas nunca se ejecutan (comportamiento esperado). El resto del middleware de errores (`err.code === 11000`, `ValidationError` y el `500` genérico) quedó cubierto con pruebas de integración que simulan fallos de base de datos.
 
-- **Web `AppHeader.vue` (77.77% líneas, sin cubrir `29-39` y `47-50`):**
-  - Son líneas de plantilla: el enlace de marca (`GU · Gestión de usuarios`) y el botón de menú móvil, más el enlace "Mi perfil" de la navegación. Los tests de componente cubren las iniciales, el rol, el nombre del usuario y el logout, pero no llegan a renderizar todos los estados de la plantilla (por ejemplo, la alternancia del menú en móvil).
+- **Web `AppHeader.vue` (83.33% líneas, sin cubrir `29` y `47-50`):**
+  - Son líneas de plantilla del enlace de marca y de los enlaces de navegación. Se añadieron pruebas para la alternancia del menú móvil y para las iniciales del usuario; las líneas restantes corresponden a nodos de plantilla que los tests de componente no llegan a ejercitar.
 
-En ambos casos se trata de caminos defensivos o de maquetación; los umbrales de cobertura (80% líneas/funciones/sentencias y 70% ramas) ya se cumplen sin necesidad de forzarlos con pruebas adicionales.
+En ambos casos se trata de código defensivo (logs deshabilitados en test) o de
+maquetación; los umbrales se cumplen con holgura: API 97.87% y web 91.10% de líneas.
 
 ## 6. Evidencias
 

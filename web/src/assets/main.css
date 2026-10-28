@@ -19,7 +19,7 @@
     --color-info-soft: #eff6ff;
 
     --color-text: #111827;
-    --color-text-muted: #6b7280;
+    --color-text-muted: #4b5563;
     --color-border: #e5e7eb;
     --color-border-strong: #d1d5db;
     --color-bg: #f5f6fa;
@@ -531,6 +531,10 @@ select.field__input {
     text-align: center;
     color: var(--color-text-muted);
     font-size: 0.9rem;
+}
+
+.auth-card__footer a {
+    text-decoration: underline;
 }
 
 .demo-box {

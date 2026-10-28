@@ -94,5 +94,14 @@ npm run dev       # web en http://localhost:5173
 - **mongodb-memory-server** — base de datos MongoDB en memoria para las pruebas.
 - **Vue Test Utils + jsdom** — montaje de componentes y simulación del usuario.
 - **Playwright** — flujos end-to-end en un navegador real.
+- **@axe-core/playwright** — pruebas de accesibilidad (WCAG) sobre las páginas.
 - **@vitest/coverage-v8** — reporte de cobertura (consola y HTML).
 - **TestSprite** — generación y ejecución de casos de prueba con IA.
+
+## Integración continua
+
+En cada `push` a `master` (y en las pull requests) se ejecuta el workflow
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml), que corre las pruebas
+unitarias/integración y la cobertura de la API y la web, y las pruebas end-to-end de
+Playwright (incluidas las de accesibilidad) en Chromium y Firefox usando una base de
+datos MongoDB de servicio.
