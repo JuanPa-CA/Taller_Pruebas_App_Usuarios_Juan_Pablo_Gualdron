@@ -11,10 +11,14 @@ usuarios (Vitest, Supertest, Vue Test Utils, Playwright y TestSprite).
 | API | @vitest/coverage-v8 | Cobertura | — | — | — | 97.87% líneas · 96.96% sentencias · 100% funciones · 91.95% ramas |
 | Web | Vitest + Vue Test Utils + jsdom | Unitarias y de componentes | 78 | 78 | 0 | — |
 | Web | @vitest/coverage-v8 | Cobertura | — | — | — | 91.10% líneas · 90.08% sentencias · 86.52% funciones · 77.59% ramas |
-| Web + API | Playwright | End-to-end (Chromium y Firefox) | 21 | 21 | 0 | — |
+| Web + API | Playwright | End-to-end (Chromium y Firefox) | 10 | 10 | 0 | — |
 | Web | @axe-core/playwright | Accesibilidad (Chromium y Firefox) | 3 | 3 | 0 | — |
 | API | TestSprite (IA) | Backend | 10 | 10 | 0 | — |
 | Web | TestSprite (IA) | Frontend | 15 | 15 | 0 | — |
+
+> Las 10 pruebas E2E y las 3 de accesibilidad se ejecutan en dos navegadores
+> (Chromium y Firefox), por lo que el total de ejecuciones de Playwright es 26
+> (20 E2E + 6 de accesibilidad).
 
 Todos los umbrales de cobertura se cumplen con holgura (mínimos: 80% líneas/funciones/
 sentencias y 70% ramas) y ambos proyectos superan el 90% de cobertura de líneas.
