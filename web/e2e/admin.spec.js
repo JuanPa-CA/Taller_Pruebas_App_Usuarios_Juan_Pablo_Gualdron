@@ -89,13 +89,15 @@ test.describe("Administración de usuarios", () => {
     await expect(page.getByTestId("user-row").filter({ hasText: email })).toHaveCount(0);
 
     await page.getByTestId("logout").click();
-    await expect(page).toHaveURL(/\/login$/);
+    // El logout puede aterrizar en /login?redirect=... si un 401 en vuelo dispara el
+    // manejador de sesión; basta con esperar el formulario de login.
+    await expect(page.getByTestId("login-form")).toBeVisible();
 
     await page.getByTestId("login-email").fill(email);
     await page.getByTestId("login-password").fill("Usuario123");
     await page.getByTestId("login-submit").click();
 
-    await expect(page).toHaveURL(/\/login$/);
+    await expect(page).toHaveURL(/\/login/);
     await expect(page.getByTestId("alert")).toContainText(/Credenciales inválidas|Usuario desactivado/);
   });
 
